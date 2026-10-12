@@ -1,0 +1,100 @@
+# Copy this file to references/team-map.local.yaml and replace placeholders.
+
+board:
+  id: "1234"
+  project_keys:
+    - "YOUR_PROJECT_KEY"
+
+defaults:
+  dry_run: true
+  backlog_jql: "project in (YOUR_PROJECT_KEY) AND statusCategory != Done AND sprint is EMPTY ORDER BY priority DESC, created ASC"
+  active_sprint_jql: "project in (YOUR_PROJECT_KEY) AND sprint in openSprints() ORDER BY Rank ASC"
+  fields: "summary,status,assignee,priority,components,labels,updated,created,duedate"
+  stale_after_days: 3
+  standup_lookback_days: 1
+  blocked_statuses:
+    - "Blocked"
+    - "On Hold"
+  active_statuses:
+    - "In Progress"
+    - "In Review"
+    - "Testing"
+  done_statuses:
+    - "Done"
+    - "Closed"
+    - "Resolved"
+
+approval:
+  assignee_change_requires_approval: true
+  allow_apply_without_approval: false
+  assigning_authorities:
+    - name: "Team Lead"
+      jira_assignee: "team.lead@example.com"
+      scope:
+        - "YOUR_PROJECT_KEY"
+  audit_log: "automation/output/approvals.log"
+
+team:
+  - name: "Team Lead"
+    jira_assignee: "team.lead@example.com"
+    team: "Example Team"
+    skills:
+      - "sprint-planning"
+      - "lead"
+      - "automation"
+    components:
+      - "Example Component"
+    labels:
+      - "sprint-planning"
+    max_in_progress: 3
+    sprint_capacity_points: 15
+    backup_assignee: "engineer.one@example.com"
+    unavailable_dates: []
+    assignment_allowlist: true
+
+  - name: "Engineer One"
+    jira_assignee: "engineer.one@example.com"
+    team: "Example Team"
+    skills:
+      - "sprint-planning"
+      - "automation"
+    components:
+      - "Example Component"
+    labels:
+      - "sprint-planning"
+    max_in_progress: 2
+    sprint_capacity_points: 8
+    backup_assignee: "engineer.two@example.com"
+    unavailable_dates: []
+    assignment_allowlist: true
+
+  - name: "Engineer Two"
+    jira_assignee: "engineer.two@example.com"
+    team: "Example Team"
+    skills:
+      - "sprint-planning"
+      - "testing"
+      - "slice-selection"
+    components:
+      - "Example Component"
+      - "Example Test Component"
+    labels:
+      - "sprint-planning"
+      - "example-test"
+    max_in_progress: 2
+    sprint_capacity_points: 8
+    backup_assignee: "engineer.one@example.com"
+    unavailable_dates: []
+    assignment_allowlist: true
+
+rules:
+  ownership_order:
+    - "component"
+    - "label"
+    - "skill"
+    - "history"
+  never_auto_assign_labels:
+    - "security"
+    - "architecture"
+    - "needs-manager-review"
+  cross_team_assignment_requires_approval: true
