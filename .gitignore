@@ -1,0 +1,19 @@
+# Local Jira configuration
+/references/team-map.local.yaml
+
+# Generated reports and automation logs
+/automation/output/*
+!/automation/output/.gitkeep
+*.log
+
+# Python tooling
+.venv/
+venv/
+__pycache__/
+*.py[cod]
+
+# Editors and operating systems
+.vscode/
+.idea/
+.DS_Store
+Thumbs.db

@@ -1,0 +1,11 @@
+# Sprint Guardian examples. Adjust board IDs, sprint IDs, and JQL before use.
+# Commands default to dry-run. Add --apply only after reviewing output.
+
+# Monday morning: shape next sprint scope.
+0 9 * * 1 cd /home/developer/sprint-guardian-development && ./sprint-guardian/automation/sprint-guardian-shape-sprint.sh --board-id 1234 --project-key ABC >> /tmp/sprint-guardian-shape.log 2>&1
+
+# Weekday standup: create a short progress pulse.
+0 10 * * 1-5 cd /home/developer/sprint-guardian-development && ./sprint-guardian/automation/sprint-guardian-progress-pulse.sh --board-id 1234 --sprint-id 4567 >> /tmp/sprint-guardian-pulse.log 2>&1
+
+# Twice weekly: surface sprint delivery risk.
+0 16 * * 2,4 cd /home/developer/sprint-guardian-development && ./sprint-guardian/automation/sprint-guardian-surface-risk.sh --board-id 1234 --sprint-id 4567 >> /tmp/sprint-guardian-risk.log 2>&1
